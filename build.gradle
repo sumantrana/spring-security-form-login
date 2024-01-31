@@ -1,0 +1,36 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.2.2'
+    id 'io.spring.dependency-management' version '1.1.4'
+}
+
+group = 'com.sumant.security'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = '17'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+    implementation 'org.springframework.ldap:spring-ldap-core'
+    implementation 'org.springframework.security:spring-security-ldap'
+    runtimeOnly 'com.h2database:h2'
+    //To be used by LDAP Security config. Provides embedded LDAP
+    //Alternatively ApacheDS can also be used
+    //	runtimeOnly "org.apache.directory.server:apacheds-core:1.5.5"
+    //	runtimeOnly "org.apache.directory.server:apacheds-server-jndi:1.5.5"
+    runtimeOnly "com.unboundid:unboundid-ldapsdk:6.0.11"
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
